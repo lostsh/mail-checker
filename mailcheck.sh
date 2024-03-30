@@ -83,7 +83,7 @@ parse_check_email(){
             echo "$char_ok"
         else
             # Unhandled behavior
-            echo -ne "\t[ ! ] Parsing telnet out went wrong\n"
+            echo -ne "\t[ ! ] Parsing telnet out went wrong\n" >&2
             echo "Exception: unhandled tenet output" >&2
         fi
     fi
