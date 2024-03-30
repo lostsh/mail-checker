@@ -71,7 +71,6 @@ parse_check_email(){
     done
 
     # parsing the output
-    #echo -e $telnet_out | grep -e "^2..[[:space:]]2" -e "^5.."
     echo -e $telnet_out | grep "^5.." >/dev/null
     if [ $? -eq 0 ]; then
         # find code 500: email is not in records
@@ -93,10 +92,7 @@ parse_check_email(){
 ## Main ##
 ##########
 if [ $# -lt 1 ]; then
-    #help "No arguments provided"
     while read input_email; do
-        #echo -ne "$input_email\t\t"
-        #check_email $input_email 2>&1 | parse_check_email "🙂" "😨"
         email_valid="$(check_email $input_email 2>&1 | parse_check_email '🙂' '😨')"
         printf "%s\t%s\n" $input_email $email_valid | expand -t 40
     done
