@@ -6,13 +6,16 @@ help(){
     if [ $# -gt 0 ]; then
         echo -e "\t[ ! ] $1\n"
     fi
-    echo -e "\t[ = ] Help page"
-    echo -e "\t$0 -h --help \t\t Display this help page"
-    echo -e "\t$0 --init-env \t C"
-    echo -e "\t$0 --conf-mail [args]\t Inst"
-    echo -e "\t\t[args]: \t "
-    echo -e "\t$0 --packages \t Ch"
-    echo -e "\n\tInfo: anti-spam protection ..."
+    echo -e "[ = ] Help Usage: $0 [OPTION] ..."
+    echo -e "[ i ] Check if email is in mail server records (telnet dig)"
+    echo -e "\t-h --help        \t Display this help page"
+    echo -e "\tAUTO MODE:       \t Check if given email is in mail server records"
+    echo -e "\tPIPE MODE:       \t Check for each email from pipe (separator:EOF)"
+    echo -e "\tMANUAL MODE:"
+    echo -e "\t-e --email       \t Check on the previously set email server (default: gmail)"
+    echo -e "\t-d --domain      \t Set email server by extracting it from dns record of the domain"
+    echo -e "\t-s --mx-server   \t Set the given email server to checking server"
+    echo -e "\nInfo: to avoid anti-spam protection take mesures (proxy...)"
     echo
 }
 
@@ -109,7 +112,7 @@ while [ -n "$1" ]; do
             if [ -z "$2" ]; then echo -e "\t[ ! ] Email not provided.\nBy\n"; exit 1; fi;
             check_email_on_server $server_mx $2
             shift
-            ;;
+        ;;
         "-s" | "--mx-server")
             server_mx="$2"
             echo -e "\t[ > ] Mail server is: $server_mx"
@@ -127,10 +130,9 @@ while [ -n "$1" ]; do
             shift
         ;;
         *"@"*"."*)
-	        #echo -ne "\t[ ! ] Not implemented yet\n" >&2
-	        echo -ne "\t[ ¤ ] Querying mail server\n"
+	        echo -ne "\t[ * ] Querying mail server\n"
 	        check_email $1
-            ;;
+        ;;
         *)
             help "Wrong argument $1"
         ;;
