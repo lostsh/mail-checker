@@ -1,6 +1,10 @@
 # mail-checker
 Use `telnet` and `dig` to check on the mail server if given email are valid.
 
+Dependecies :
+- dig >=_9.10_
+- telnet
+
 ## Usage
 ```bash
 [ = ] Help Usage: ./mailcheck.sh [OPTION] ...
